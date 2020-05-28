@@ -51,3 +51,16 @@ httpServer.listen(PORT, () => {
   console.log("🚀  API server now on port", PORT);
   startTimer();
 });
+
+const gracefulShutdown = () => {
+  // tear down database
+  process.exit();
+
+  // db.teardown()
+  //     .catch(() => {})
+  //     .then(() => process.exit());
+};
+
+process.on('SIGINT', gracefulShutdown);
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGUSR2', gracefulShutdown); // Sent by nodemon
