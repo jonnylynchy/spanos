@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import { Timer } from './containers/Timer';
 
 function App() {
 
-  const [timerMessage, setTimerMessage] = useState('');
-
-  useEffect(() => {
-    // fetch('/api/timers', response => response)
-    // .then(response => response.json())
-    // .then(response => console.log(response));
-    if(window && window.io) {
-      const socket = window.io();
-      socket.on('timer', (msg) => {
-        setTimerMessage(msg);
-      });
-    }
-
-  }, []);
-
   return (
-    <div>Timer from server: {timerMessage}</div>
+    <Router>
+      <React.Fragment>
+        <h1>Timer</h1>
+        <Route path="/timer">
+          <Timer />
+        </Route>
+      </React.Fragment>
+    </Router>
   );
 }
 

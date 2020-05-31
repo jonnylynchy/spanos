@@ -17,7 +17,10 @@ app.use([
     express.json()
 ]);
 
-app.use(routes);
+// Set up socket in app context
+app.set('io', io);
+
+app.use('/api', routes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -29,13 +32,6 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 });
-
-const startTimer = () => {
-  let time = 1;
-  setInterval(() => {
-    io.emit('timer', time++);
-  }, 1000);
-}
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
@@ -49,7 +45,6 @@ const startTimer = () => {
 
 httpServer.listen(PORT, () => {
   console.log("🚀  API server now on port", PORT);
-  startTimer();
 });
 
 const gracefulShutdown = () => {
