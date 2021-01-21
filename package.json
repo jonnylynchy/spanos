@@ -23,6 +23,6 @@
 		"nodemon": "^2.0.4",
 		"random-token": "0.0.8",
 		"react-router-dom": "^5.2.0",
-		"socket.io": "^2.3.0"
+		"socket.io": "^2.4.0"
 	}
 }
